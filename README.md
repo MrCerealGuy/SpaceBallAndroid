@@ -6,9 +6,9 @@ A small android game created with ChatGPT.
 
 ![SpaceBall](screenshot_2.jpg)
 
-Build:
-cordova clean android
-cordova build android
+Build:  
+cordova clean android  
+cordova build android  
 
-Run: 
+Run:   
 cordova run android

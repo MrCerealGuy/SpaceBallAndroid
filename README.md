@@ -1,4 +1,4 @@
-# SpaceBall
+# SpaceBall for Android
 
 A small android game created with ChatGPT.
 
@@ -9,6 +9,10 @@ A small android game created with ChatGPT.
 Dependencies:  
 - jdk-17.0.2  
 - Gradle 8.7
+
+Install:  
+winget install -e --id OpenJS.NodeJS 
+npm install -g cordova
 
 Build:  
 cordova clean android  

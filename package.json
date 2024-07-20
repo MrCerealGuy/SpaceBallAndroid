@@ -13,11 +13,16 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "devDependencies": {
-    "cordova-android": "^13.0.0"
+    "cordova-android": "^13.0.0",
+    "cordova-plugin-screen-orientation": "^3.0.4",
+    "es6-promise-plugin": "^4.2.2"
   },
   "cordova": {
     "platforms": [
       "android"
-    ]
+    ],
+    "plugins": {
+      "cordova-plugin-screen-orientation": {}
+    }
   }
 }

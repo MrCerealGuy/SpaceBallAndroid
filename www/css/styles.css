@@ -41,6 +41,9 @@ canvas {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+	-webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 
@@ -71,14 +74,19 @@ canvas {
     border-radius: 50%;
     text-align: center;
     line-height: 100px;
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
 }
 
 #left-button {
     left: 10px;
+	display: none;
 }
 
 #right-button {
     right: 10px;
+	display: none;
 }
 
 #score {
@@ -87,4 +95,5 @@ canvas {
     left: 10px;
     color: white;
     font-size: 24px;
+	display: none;
 }

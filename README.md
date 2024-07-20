@@ -15,8 +15,13 @@ winget install -e --id OpenJS.NodeJS
 npm install -g cordova
 
 Build:  
+cordova plugin add cordova-plugin-screen-orientation
 cordova clean android  
 cordova build android  
 
 Run:   
-cordova run android
+cordova run android (if your device is connected)  
+
+or
+
+cordova emulate android

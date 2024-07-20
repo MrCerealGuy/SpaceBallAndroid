@@ -7,6 +7,15 @@ const bounceVelocity = Math.sqrt(2 * gravity * (window.innerHeight / 3 / 100)); 
 const starCount = 50;
 const maxAsteroids = 10;
 
+// lock the device orientation
+window.screen.orientation.lock('landscape-primary')
+
+window.oncontextmenu = function(event) {
+     event.preventDefault();
+     event.stopPropagation();
+     return false;
+};
+
 function webViewLoaded(args) {
      if (args.object.android) {
       var webView = args.object.android;
@@ -53,6 +62,9 @@ const gameOverSound = new Howl({
 
 function startGame() {
     document.getElementById('splash-screen').style.display = 'none';
+	document.getElementById('score').style.display = 'block';
+	document.getElementById('left-button').style.display = 'block';
+	document.getElementById('right-button').style.display = 'block';
 	
     gameStarted = true;
 	

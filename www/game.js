@@ -6,6 +6,7 @@ const gravity = 4.9; // Reduced gravity for slower falling
 const bounceVelocity = Math.sqrt(2 * gravity * (window.innerHeight / 3 / 100)); // Velocity for a third of the screen height
 const starCount = 50;
 const maxAsteroids = 10;
+const startY = 5.0;
 
 // lock the device orientation
 window.screen.orientation.lock('landscape-primary')
@@ -29,6 +30,9 @@ document.getElementById('start-button').addEventListener('click', () => {
 
 const leftButton = document.getElementById('left-button');
 const rightButton = document.getElementById('right-button');
+const gameOverScreen = document.getElementById('game-over-screen');
+const finalScore = document.getElementById('final-score');
+const restartButton = document.getElementById('restart-button');
 
 leftButton.addEventListener('touchstart', () => moveLeft = true);
 leftButton.addEventListener('touchend', () => moveLeft = false);
@@ -60,7 +64,7 @@ const gameOverSound = new Howl({
     src: ['res/gameover.mp3']
 });
 
-function startGame() {
+function startGame() {	
     document.getElementById('splash-screen').style.display = 'none';
 	document.getElementById('score').style.display = 'block';
 	document.getElementById('left-button').style.display = 'block';
@@ -91,7 +95,7 @@ function init() {
     const geometry = new THREE.SphereGeometry(0.2, 32, 32);
     const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     ball = new THREE.Mesh(geometry, material);
-    ball.position.y = 2.5; // Starting position above the visible screen
+    ball.position.y = startY; // Starting position above the visible screen
     scene.add(ball);
 
     // Create initial platforms
@@ -121,6 +125,10 @@ function init() {
 
     // Get score element
     scoreElement = document.getElementById('score');
+	
+	// Reset the score
+    score = 0;
+	scoreElement.textContent = `Score: ${score}`;
 	
     // Debugging logs
     console.log('Scene:', scene);
@@ -203,8 +211,8 @@ function animate() {
 			
             ballVelocityY = bounceVelocity;
             ball.position.y = platform.position.y + 0.2; // Prevent clipping through the platform
-            score++;
-            scoreElement.textContent = `Score: ${score}`;
+            
+			onBallHitPlatform()
         }
     });
 
@@ -260,30 +268,44 @@ function animate() {
 
     // Check if the ball has fallen off the screen
     if (ball.position.y < -5) {
-		// Play game over sound
-        gameOverSound.play();
-		
-        //alert('Game Over!');
-        resetGame();
+		gameStarted = false;
+				
+		displayGameOver();		
     }
 
     renderer.render(scene, camera);
 }
+
+function displayGameOver() {
+	// Play game over sound
+    gameOverSound.play();
+	
+    finalScore.textContent = `Final Score: ${score}`;
+    gameOverScreen.style.display = 'flex';
+}
+
+restartButton.addEventListener('click', () => {
+    resetGame();
+});
 
 function spawnPlatform() {
     const platformGeometry = new THREE.BoxGeometry(1, 0.1, 1);
     const platformMaterial = new THREE.MeshBasicMaterial({ map: platformTexture });
 	//const platformMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff });
     const newPlatform = new THREE.Mesh(platformGeometry, platformMaterial);
+	
     newPlatform.position.x = (Math.random() - 0.5) * 10;
     newPlatform.position.y = -1.5;
     newPlatform.dx = (Math.random() - 0.5) * platformSpeed;
+	
     scene.add(newPlatform);
     platforms.push(newPlatform);
 }
 
 function resetGame() {
-    ball.position.set(0, 2.5, 0);
+	gameOverScreen.style.display = 'none';
+	
+    ball.position.set(0, startY, 0);
     ballVelocityY = 0; // Reset ball velocity
     score = 0;
     scoreElement.textContent = `Score: ${score}`;
@@ -297,4 +319,12 @@ function resetGame() {
     asteroids.forEach(asteroid => scene.remove(asteroid));
     asteroids = [];
     spawnAsteroids(minAsteroids);
+	
+	gameStarted = true;
+	animate();
+}
+
+function onBallHitPlatform() {
+    score++;
+    scoreElement.textContent = `Score: ${score}`;
 }

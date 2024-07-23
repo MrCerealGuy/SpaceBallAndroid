@@ -97,3 +97,29 @@ canvas {
     font-size: 24px;
 	display: none;
 }
+
+#game-over-screen {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 20;
+    color: white;
+    font-size: 30px;
+    font-family: 'StarJedi', sans-serif;
+}
+
+#restart-button {
+    padding: 20px 40px;
+    font-size: 30px;
+    background: yellow;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}

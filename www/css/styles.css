@@ -37,6 +37,7 @@ canvas {
 	padding: 20px 40px;
     font-size: 1.5em;
     background-color: yellow;
+	color: black;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -118,8 +119,14 @@ canvas {
 #restart-button {
     padding: 20px 40px;
     font-size: 30px;
-    background: yellow;
+    background-color: yellow;
+	color: black;
     border: none;
+    border-radius: 10px;
     cursor: pointer;
+	transition: background-color 0.3s ease;
     margin-top: 20px;
+	-webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
